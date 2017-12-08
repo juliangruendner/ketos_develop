@@ -20,6 +20,9 @@ services:
       - db
     volumes:
       - type: volume
+        source: ./mlService_mlServiceApi/src
+        target: /root/src
+      - type: volume
         source: /var/run/docker.sock
         target: /var/run/docker.sock
       - type: volume
@@ -28,7 +31,7 @@ services:
     env_file:
       - config_mlService.env
       - config_db.env
-    command: bash -c "cd mlService_mlServiceApi && git pull && cd src && chmod +x startup.sh && ./startup.sh"
+    command: bash -c "cd /root/src && chmod +x startup.dev.sh && ./startup.dev.sh"
 
   db:
     container_name: db
@@ -41,7 +44,7 @@ services:
       - "5432:5432"
     volumes:
       - type: volume
-        source: ~/ml_service_postgres_data
+        source: ./ml_service_postgres_data
         target: /var/lib/postgresql/data
     networks:
       - backend
