@@ -1,0 +1,82 @@
+version: '3.2'
+
+services:
+
+  ml_service:
+    container_name: ml_service
+    build:
+      context: .
+      dockerfile: Dockerfile.mlService
+    restart: unless-stopped
+    depends_on:
+      - db
+      - dataws
+    ports:
+      - "5000:5000"
+    networks:
+      - backend
+      - environment
+    links:
+      - db
+    volumes:
+      - type: volume
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock
+      - type: volume
+        source: /usr/bin/docker
+        target: /usr/bin/docker
+    env_file:
+      - config_mlService.env
+      - config_db.env
+    command: bash -c "cd mlService_mlServiceApi && git pull && cd src && chmod +x startup.sh && ./startup.sh"
+
+  db:
+    container_name: db
+    restart: unless-stopped
+    image: postgres:latest
+    restart: unless-stopped
+    env_file:
+      - config_db.env
+    ports:
+      - "5432:5432"
+    volumes:
+      - type: volume
+        source: ~/ml_service_postgres_data
+        target: /var/lib/postgresql/data
+    networks:
+      - backend
+  
+  mongodb:
+    container_name: mongodb
+    build:
+      context: .
+      dockerfile: Dockerfile.mongo
+    container_name: mongodb
+    restart: unless-stopped
+    networks:
+      - backend
+    expose:
+      - "27017" # process
+      - "28017" # http
+    ports:
+      - "127.0.0.1:27017:27017"
+      - "127.0.0.1:28017:28017"
+
+  dataws:
+    container_name: data_pre
+    env_file:
+      - config_dataws.env
+    build:
+      context: .
+      dockerfile: Dockerfile.dataws
+    restart: unless-stopped
+    depends_on:
+      - mongodb
+    ports:
+      - "5002:5000"
+    networks:
+      - backend
+
+networks:
+  backend:
+  environment:

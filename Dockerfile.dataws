@@ -1,0 +1,16 @@
+FROM python:3
+
+ADD maddevopsrsa /root/.ssh/
+
+RUN mkdir -p /root/.ssh/
+RUN chmod -R 600 /root/.ssh/
+RUN ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+RUN mv /root/.ssh/maddevopsrsa /root/.ssh/id_rsa
+RUN chmod 600 ~/.ssh/id_rsa
+RUN git clone git@github.com:juliangruendner/mlService_dataPreprocessing.git
+
+CMD cd mlService_dataPreprocessing && \
+    git pull && \
+    cd src && \
+    chmod +x startup.sh && \
+    ./startup.sh
