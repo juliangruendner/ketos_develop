@@ -79,6 +79,11 @@ services:
       - "5002:5000"
     networks:
       - backend
+      - environment
+    volumes:
+      - type: volume
+        source: ./mlService_dataPreprocessing
+        target: /mlService_dataPreprocessing
 
 networks:
   backend:
