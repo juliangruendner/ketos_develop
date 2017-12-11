@@ -8,11 +8,11 @@ do
   if [ -d "$curRepo" ]
   then
         cd $curRepo
-        echo "****updating git repo $i****"
+        echo "****updating git repo $repoName****"
         git pull
    else
         cd $baseDir
-        echo "****initialising git repo $i****"
+        echo "****initialising git repo $repoName****"
         git clone "$githubBase$repoName.git"
   fi
 done
