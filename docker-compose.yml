@@ -19,15 +19,9 @@ services:
     links:
       - db
     volumes:
-      - type: volume
-        source: ./mlService_mlServiceApi/src
-        target: /root/src
-      - type: volume
-        source: /var/run/docker.sock
-        target: /var/run/docker.sock
-      - type: volume
-        source: /usr/bin/docker
-        target: /usr/bin/docker
+      - ./mlService_mlServiceApi/src:/root/src
+      - /var/run/docker.sock:/var/run/docker.sock
+      #- /usr/bin/docker:/usr/bin/docker
     env_file:
       - config_mlService.env
       - config_db.env
@@ -43,9 +37,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - type: volume
-        source: ./ml_service_postgres_data
-        target: /var/lib/postgresql/data
+      - ./ml_service_postgres_data:/var/lib/postgresql/data
     networks:
       - backend
   
@@ -81,9 +73,7 @@ services:
       - backend
       - environment
     volumes:
-      - type: volume
-        source: ./mlService_dataPreprocessing
-        target: /mlService_dataPreprocessing
+      - ./mlService_dataPreprocessing:/mlService_dataPreprocessing
 
 networks:
   backend:
