@@ -5,13 +5,16 @@ import sys
 
 envRequest = 'http://localhost:5001/jupyter'
 resp = requests.post(envRequest).json()
-jupyter_token = resp['jupyter_token']
- 
-container_id = sys.argv[1]
-jupyter_token = 'f3d2f139feca4673bd454ee0eef7b7cf'
 
+if 'jupyter_token' in resp:
+    jupyter_token = resp['jupyter_token']
+else:
+    sys.exit("no new env inserted as env already exists and has running jupyter")
+
+container_id = sys.argv[1]
 conn = psycopg2.connect(host='localhost', database='mad', user='mad', password='MAD')
 cur = conn.cursor()
+cur.execute("DELETE FROM ml_model where environment_id = '1'")
 cur.execute("DELETE FROM environment where id = '1'")
 
 sSql = "INSERT INTO environment VALUES('1','docker_api_dev_env',%s, %s, 'running', '8001', %s, 'docker api dev test', '1', '1')"
