@@ -23,3 +23,4 @@ cur.execute(sSql, (container_id, container_name, jupyter_token))
 
 conn.commit()
 cur.close()
+print("new jupyter started and token inserted into mlService db")
