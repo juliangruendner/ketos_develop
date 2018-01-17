@@ -1,3 +1,8 @@
+if [ ! -d "/ketos" ]; then
+    echo 'creating ketos root directory...'
+    sudo mkdir /ketos
+    sudo chmod 777 /ketos
+fi
 docker-compose -f docker-compose.yml -p mlservice up -d
 docker-compose -f mlService_dockerApi/docker/docker-compose.dev.all.yml -f mlService_dockerApi/docker/docker-compose.dev.yml up -d
 ./wait-for-it.sh localhost:5432 --timeout=0
