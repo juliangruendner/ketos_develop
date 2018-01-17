@@ -2,6 +2,9 @@ githubBase="git@github.com:juliangruendner/"
 mlServiceRepos=("mlService_mlServiceApi" "mlService_dockerApi" "mlService_dataPreprocessing" "mlService_frontend")
 baseDir=$(pwd)
 
+echo "****updating base repo Develop****"
+git pull
+
 for repoName in ${mlServiceRepos[@]}
 do
   curRepo="$baseDir/$repoName"
