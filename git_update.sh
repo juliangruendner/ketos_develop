@@ -8,14 +8,12 @@ git pull
 for repoName in ${mlServiceRepos[@]}
 do
   curRepo="$baseDir/$repoName"
-  if [ -d "$curRepo" ]
+  if [ ! -d "$curRepo" ]
   then
-        cd $curRepo
-        echo "****updating git repo $repoName****"
-        git pull
-   else
         cd $baseDir
         echo "****initialising git repo $repoName****"
         git clone "$githubBase$repoName.git"
   fi
 done
+
+ls | grep '\<mlService_' | xargs -P10 -I{} git --git-dir={}/.git --work-tree=$PWD/{} pull origin master
