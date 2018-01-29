@@ -22,7 +22,7 @@ services:
       - ./mlService_mlServiceApi/src:/root/src
       - /var/run/docker.sock:/var/run/docker.sock
       #- /usr/bin/docker:/usr/bin/docker
-      - /ketos/environments_data:/environments_data
+      - /ketos:/ketos
     env_file:
       - config_mlService.env
       - config_db.env
