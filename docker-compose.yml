@@ -75,6 +75,7 @@ services:
       - environment
     volumes:
       - ./mlService_dataPreprocessing:/mlService_dataPreprocessing
+    command: bash -c "cd /mlService_dataPreprocessing/src && chmod +x startup.dev.sh && ./startup.dev.sh"
 
 networks:
   backend:
