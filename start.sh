@@ -1,7 +1,6 @@
 if [ ! -d "/ketos" ]; then
     echo 'creating ketos root directory...'
     sudo mkdir /ketos
-    sudo mkdir /ketos/environments_data
     sudo chmod -R 777 /ketos
 fi
 docker-compose -f docker-compose.yml -p mlservice up -d
