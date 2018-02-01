@@ -12,7 +12,7 @@ else:
     sys.exit("no new env inserted as env already exists and has running jupyter")
 
 container_id = sys.argv[1]
-conn = psycopg2.connect(host='localhost', database='mad', user='mad', password='MAD')
+conn = psycopg2.connect(host='localhost', database='mad', user='mad', password='MAD', port=5433)
 cur = conn.cursor()
 cur.execute("DELETE FROM ml_model where environment_id = '1'")
 cur.execute("DELETE FROM environment where id = '1'")
