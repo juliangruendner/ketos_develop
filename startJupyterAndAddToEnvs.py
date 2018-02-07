@@ -17,6 +17,9 @@ cur = conn.cursor()
 cur.execute("DELETE FROM ml_model where environment_id = '1'")
 cur.execute("DELETE FROM environment where id = '1'")
 
+sSql = "DELETE FROM environment where container_name = 'docker_api_1'"
+cur.execute(sSql)
+
 sSql = "INSERT INTO environment(name, container_id, container_name, status, jupyter_port, jupyter_token, description, creator_id, image_id) VALUES('docker_api_dev_env',%s, %s, 'running', '8001', %s, 'docker api dev test', '1', '1')"
 container_name = 'docker_api_1'
 cur.execute(sSql, (container_id, container_name, jupyter_token))
