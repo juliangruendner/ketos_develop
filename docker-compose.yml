@@ -76,6 +76,20 @@ services:
     volumes:
       - ./mlService_dataPreprocessing:/mlService_dataPreprocessing
     command: bash -c "cd /mlService_dataPreprocessing/src && chmod +x startup.dev.sh && ./startup.dev.sh"
+  
+  anno_db:
+    container_name: anno_db
+    restart: unless-stopped
+    image: postgres:latest
+    restart: unless-stopped
+    env_file:
+      - config_anno_db.env
+    ports:
+      - "5434:5432"
+    volumes:
+      - ./anno_postgres_data:/var/lib/postgresql/data
+    networks:
+      - backend
 
 networks:
   backend:
