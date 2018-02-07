@@ -87,7 +87,7 @@ services:
     ports:
       - "5434:5432"
     volumes:
-      - ./anno_postgres_data:/var/lib/postgresql/data
+      - ./ml_service_anno_postgres_data:/var/lib/postgresql/data
     networks:
       - backend
   
