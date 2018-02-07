@@ -5,7 +5,7 @@ if [ ! -d "/ketos" ]; then
 fi
 docker-compose -f docker-compose.yml -p mlservice up -d
 docker-compose -f mlService_dockerApi/docker/docker-compose.dev.all.yml -f mlService_dockerApi/docker/docker-compose.dev.yml up -d
-./wait-for-it.sh localhost:5433 --timeout=0
+./wait-for-it.sh localhost:5000 --timeout=0
 until $(curl --output /dev/null --silent --head --fail http://localhost:5001/jupyter); do
     printf '.'
     sleep 1
