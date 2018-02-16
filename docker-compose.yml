@@ -16,6 +16,7 @@ services:
     networks:
       - backend
       - environment
+      - fhiromop
     links:
       - db
     volumes:
@@ -114,3 +115,6 @@ services:
 networks:
   backend:
   environment:
+  fhiromop:
+      external:
+        name: fhiromop
