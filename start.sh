@@ -3,7 +3,7 @@ if [ ! -d "/ketos" ]; then
     sudo mkdir /ketos
     sudo chmod -R 777 /ketos
 fi
-docker-compose -f docker-compose.yml -p mlservice up -d
+docker-compose -f docker-compose.yml -p ketos up -d
 docker-compose -f ketos_environment_api/docker/docker-compose.dev.all.yml -f ketos_environment_api/docker/docker-compose.dev.yml up -d
 ./wait-for-it.sh localhost:5000 --timeout=0
 until $(curl --output /dev/null --silent --head --fail http://localhost:5001/jupyter); do
