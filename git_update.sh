@@ -1,5 +1,5 @@
 githubBase="git@github.com:juliangruendner/"
-mlServiceRepos=("mlService_mlServiceApi" "mlService_dockerApi" "mlService_dataPreprocessing" "mlService_frontend" "mlService_atlas" "mlService_data-service_fhirOmop" "mlService_smartapps" "mlService_annotation")
+mlServiceRepos=("ketos_brain_api" "ketos_environment_api" "ketos_preprocessing" "ketos_gui" "ketos_atlas" "ketos_data" "ketos_app" "ketos_annotation")
 baseDir=$(pwd)
 
 echo "****updating base repo Develop****"
