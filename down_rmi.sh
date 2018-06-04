@@ -1,1 +1,1 @@
-docker-compose -f docker-compose.yml -p mlservice down --rmi all
+docker-compose -f docker-compose.yml -p ketos down --rmi all

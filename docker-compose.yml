@@ -20,7 +20,7 @@ services:
     links:
       - db
     volumes:
-      - ./mlService_mlServiceApi/src:/root/src
+      - ./ketos_brain_api/src:/root/src
       - /var/run/docker.sock:/var/run/docker.sock
       #- /usr/bin/docker:/usr/bin/docker
       - /ketos:/ketos
@@ -75,7 +75,7 @@ services:
       - backend
       - environment
     volumes:
-      - ./mlService_dataPreprocessing:/mlService_dataPreprocessing
+      - ./ketos_preprocessing:/mlService_dataPreprocessing
     command: bash -c "cd /mlService_dataPreprocessing/src && chmod +x startup.dev.sh && ./startup.dev.sh"
   
   anno_db:
@@ -107,7 +107,7 @@ services:
     links:
       - anno_db
     volumes:
-      - ./mlService_annotation/src:/root/src
+      - ./ketos_annotation/src:/root/src
     env_file:
       - config_anno_db.env
     command: bash -c "cd /root/src && chmod +x startup.dev.sh && ./startup.dev.sh"
