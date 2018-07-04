@@ -22,7 +22,6 @@ services:
     volumes:
       - ./ketos_brain_api/src:/root/src
       - /var/run/docker.sock:/var/run/docker.sock
-      #- /usr/bin/docker:/usr/bin/docker
       - /ketos:/ketos
     env_file:
       - config_mlService.env
