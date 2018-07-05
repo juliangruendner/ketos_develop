@@ -1,3 +1,4 @@
 FROM python:3
 
-RUN git clone git@github.com:ketos-ai/preprocessing.git
+RUN git clone git@github.com:juliangruendner/ketos_preprocessing.git
+
