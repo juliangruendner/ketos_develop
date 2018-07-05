@@ -8,6 +8,6 @@ docker build -f Dockerfile.API.prodTf -t ketos.ai:5043/mlservicecontainer_prod_t
 
 # build r image
 cd docker/ubuntu_jupyter_r
-docker build -t ketos.ai/mlservicecontainer_r .
+docker build -t ketos.ai:5043/mlservicecontainer_r .
 cd ..
-docker build -f Dockerfile.API.prod -t ketos.ai/mlservicecontainer_prod_r .
+docker build -f Dockerfile.API.prod -t ketos.ai:5043/mlservicecontainer_prod_r .
