@@ -1,4 +1,3 @@
 FROM python:3
 
-RUN git clone git@github.com:juliangruendner/ketos_preprocessing.git
-
+ADD ketos_environment_api/ /mlService_dataPreprocessing

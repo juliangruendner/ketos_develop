@@ -1,3 +1,4 @@
 FROM python:3
 
-RUN git clone git@github.com:juliangruendner/ketos_brain_api.git
+ADD ketos_brain_api/src /root/src
+

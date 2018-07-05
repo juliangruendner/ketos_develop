@@ -1,3 +1,3 @@
 FROM python:3
 
-RUN git clone git@github.com:juliangruendner/ketos_annotation.git
+ADD ketos_annotation/src /root/src
