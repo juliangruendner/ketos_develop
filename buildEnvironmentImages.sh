@@ -6,8 +6,11 @@ docker build -t ketos.ai:5043/mlservicecontainer_tf .
 cd ../..
 docker build -f Dockerfile.API.prodTf -t ketos.ai:5043/mlservicecontainer_prod_tf .
 
+
 # build r image
-cd docker/alpine_jupyter_r
+cd docker/alpine_jupyter
+docker build -t ketos.ai:5043/alpine_jupyter:latest .
+cd ../alpine_jupyter_r
 docker build -t ketos.ai:5043/mlservicecontainer_r .
 cd ../..
 docker build -f Dockerfile.API.prod -t ketos.ai:5043/mlservicecontainer_prod_r .
