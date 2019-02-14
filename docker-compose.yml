@@ -72,7 +72,7 @@ services:
       - environment
     volumes:
       - ./ketos_preprocessing:/mlService_dataPreprocessing
-    command: bash -c "cd /mlService_dataPreprocessing/src && chmod +x startup.sh && ./startup.sh"
+    command: bash -c "cd /mlService_dataPreprocessing/src && chmod +x startup.dev.sh && ./startup.dev.sh"
   
   anno_db:
     container_name: anno_db
