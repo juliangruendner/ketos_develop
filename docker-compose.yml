@@ -1,7 +1,15 @@
 version: '2.0'
 
 services:
-
+  ketos_gui:
+    container_name: ketos_gui
+    image: ketos_gui
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - frontend
   ml_service:
     container_name: ml_service
     build:
@@ -14,6 +22,7 @@ services:
     ports:
       - "5000:5000"
     networks:
+      - frontend
       - backend
       - environment
       - fhiromop
@@ -109,6 +118,7 @@ services:
     command: bash -c "cd /root/src && chmod +x startup.dev.sh && ./startup.dev.sh"
 
 networks:
+  frontend:
   backend:
   environment:
   fhiromop:
