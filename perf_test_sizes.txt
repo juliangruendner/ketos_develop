@@ -1,9 +1,0 @@
-datasetsize: 5 , time taken:  2
-datasetsize: 50 , time taken:  6
-datasetsize: 100 , time taken:  10
-datasetsize: 500 , time taken:  47
-datasetsize: 1000 , time taken:  85
-datasetsize: 50 , time taken:  10
-datasetsize: 50 , time taken:  9
-9 18 26 34 47, 
-60, 74
