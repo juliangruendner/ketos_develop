@@ -1,7 +1,7 @@
 version: '2.0'
 
 services:
-  ketos_gui:
+  gui:
     container_name: ketos_gui
     image: ketos_gui
     restart: unless-stopped
@@ -10,15 +10,13 @@ services:
       - "443:443"
     networks:
       - frontend
-  ml_service:
-    container_name: ml_service
-    build:
-      context: .
-      dockerfile: Dockerfile.mlService
+  brain:
+    container_name: ketos_brain
+    image: python:3
     restart: unless-stopped
     depends_on:
-      - db
-      - dataws
+      - brain_db
+      - preproc
     ports:
       - "5000:5000"
     networks:
@@ -27,32 +25,32 @@ services:
       - environment
       - fhiromop
     links:
-      - db
+      - brain_db
     volumes:
-      - ./ketos_brain_api/src:/root/src
+      - ./ketos_brain_api/src:/ketos_brain_api
       - /var/run/docker.sock:/var/run/docker.sock
       - /ketos:/ketos
     env_file:
-      - config_mlService.env
-      - config_db.env
-    command: bash -c "cd /root/src && chmod +x startup.dev.sh && ./startup.dev.sh"
+      - config_brain.env
+      - config_brain_db.env
+    command: bash -c "cd /ketos_brain_api && chmod +x startup.dev.sh && ./startup.dev.sh"
 
-  db:
-    container_name: db
+  brain_db:
+    container_name: ketos_brain_db
     restart: unless-stopped
     image: postgres:latest
     restart: unless-stopped
     env_file:
-      - config_db.env
+      - config_brain_db.env
     ports:
       - "5433:5432"
     volumes:
-      - ./ml_service_postgres_data:/var/lib/postgresql/data
+      - ./pg_data_brain:/var/lib/postgresql/data
     networks:
       - backend
   
   mongodb:
-    container_name: mongodb
+    container_name: ketos_preproc_db
     image: mongo:latest
     restart: unless-stopped
     networks:
@@ -64,13 +62,11 @@ services:
       - "127.0.0.1:27017:27017"
       - "127.0.0.1:28017:28017"
 
-  dataws:
-    container_name: data_pre
+  preproc:
+    container_name: ketos_preproc
     env_file:
-      - config_dataws.env
-    build:
-      context: .
-      dockerfile: Dockerfile.dataws
+      - config_preproc.env
+    image: python:3
     restart: unless-stopped
     depends_on:
       - mongodb
@@ -80,11 +76,11 @@ services:
       - backend
       - environment
     volumes:
-      - ./ketos_preprocessing:/mlService_dataPreprocessing
-    command: bash -c "cd /mlService_dataPreprocessing/src && chmod +x startup.dev.sh && ./startup.dev.sh"
+      - ./ketos_preprocessing:/ketos_preprocessing
+    command: bash -c "cd /ketos_preprocessing/src && chmod +x startup.dev.sh && ./startup.dev.sh"
   
   anno_db:
-    container_name: anno_db
+    container_name: ketos_anno_db
     restart: unless-stopped
     image: postgres:latest
     restart: unless-stopped
@@ -93,15 +89,13 @@ services:
     ports:
       - "5434:5432"
     volumes:
-      - ./ml_service_anno_postgres_data:/var/lib/postgresql/data
+      - ./pg_data_anno:/var/lib/postgresql/data
     networks:
       - backend
   
   anno_api:
-    container_name: anno_api
-    build:
-      context: .
-      dockerfile: Dockerfile.annoAPI
+    container_name: ketos_anno
+    image: python:3
     restart: unless-stopped
     depends_on:
       - anno_db
@@ -112,10 +106,10 @@ services:
     links:
       - anno_db
     volumes:
-      - ./ketos_annotation/src:/root/src
+      - ./ketos_annotation/src:/ketos_annotation
     env_file:
       - config_anno_db.env
-    command: bash -c "cd /root/src && chmod +x startup.dev.sh && ./startup.dev.sh"
+    command: bash -c "cd /ketos_annotation && chmod +x startup.dev.sh && ./startup.dev.sh"
 
 networks:
   frontend:

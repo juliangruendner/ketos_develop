@@ -1,4 +1,0 @@
-FROM python:3
-
-ADD ketos_brain_api/src /root/src
-
