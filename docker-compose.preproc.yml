@@ -1,0 +1,35 @@
+version: '2.0'
+
+services:
+  
+  mongodb:
+    container_name: ketos_preproc_db
+    image: mongo:latest
+    restart: unless-stopped
+    networks:
+      - backend
+    expose:
+      - "27017" # process
+      - "28017" # http
+    ports:
+      - "127.0.0.1:27017:27017"
+      - "127.0.0.1:28017:28017"
+
+  preproc:
+    container_name: ketos_preproc
+    env_file:
+      - config_preproc.env
+    image: python:3
+    restart: unless-stopped
+    depends_on:
+      - mongodb
+    ports:
+      - "5002:5000"
+    networks:
+      - backend
+    volumes:
+      - ./ketos_preprocessing:/ketos_preprocessing
+    command: bash -c "cd /ketos_preprocessing/src && chmod +x startup.dev.sh && ./startup.dev.sh"
+
+networks:
+  backend:
