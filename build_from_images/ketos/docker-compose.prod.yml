@@ -1,0 +1,64 @@
+version: '2.0'
+
+services:
+  ketos_gui:
+    container_name: ketos_gui
+    image: ketos_gui
+    restart: unless-stopped
+    ports:
+      - "443:443"
+    volumes:
+      - /ketos/auth:/etc/nginx/conf.d/ketos_auth
+    networks:
+      - frontend
+  ketos_brain:
+    container_name: ketos_brain
+    image: ketos_brain
+    restart: unless-stopped
+    depends_on:
+      - brain_db
+      - ketos_preprocessing
+    networks:
+      - frontend
+      - backend
+      - environment
+    links:
+      - brain_db
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /ketos:/ketos
+    env_file:
+      - config_brain.env
+      - config_brain_db.env
+  brain_db:
+    container_name: ketos_brain_db
+    restart: unless-stopped
+    image: postgres:latest
+    restart: unless-stopped
+    env_file:
+      - config_brain_db.env
+    volumes:
+      - ./ketos_postgres_data:/var/lib/postgresql/data
+    networks:
+      - backend
+  ketos_preprocessing:
+    container_name: ketos_preproc
+    env_file:
+      - config_preproc.env
+    image: ketos_preprocessing
+    restart: unless-stopped
+    depends_on:
+      - mongodb
+    networks:
+      - backend
+      - environment
+  mongodb:
+    container_name: ketos_preproc_db
+    image: mongo:latest
+    restart: unless-stopped
+    networks:
+      - backend
+networks:
+  frontend:
+  backend:
+  environment:
