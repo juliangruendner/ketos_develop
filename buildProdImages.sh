@@ -1,7 +1,7 @@
-REGISTRY_PREFIX=$1
+REGISTRY_PREFIX=${1:-"docker.miracum.org/ketos"}
 REGISTRY_USER=$2
 REGISTRY_PW=$3
-VERSION_TAG=$4
+VERSION_TAG=${4:-"v0.1.0"}
 
 if [ -n $VERSION_TAG ]; then
     VERSION_TAG=":$VERSION_TAG"
@@ -27,25 +27,35 @@ cd ../ketos_annotation
 printf "building image: $REGISTRY_PREFIX/ketos_anno$VERSION_TAG \n"
 docker build -f Dockerfile.ketos_anno -t $REGISTRY_PREFIX/ketos_anno$VERSION_TAG .
 
+# build ds and r jupyter image
+cd ../ketos_environment_api/docker/jupyter_ds
+docker build -t jupyter_ds:latest .
+
+cd ../..
+printf "building image: $REGISTRY_PREFIX/ketos_env_ds$VERSION_TAG \n"
+docker build -f Dockerfile.API.prod.ds -t $REGISTRY_PREFIX/ketos_env_ds$VERSION_TAG .
+docker build -f Dockerfile.API.prod.ds -t $REGISTRY_PREFIX/ketos_env_r$VERSION_TAG .
 
 # add building of ketos data
 
-exit
 printf "pushing images ...\n"
 
-printf "pushing image: $REGISTRY_PREFIX/ds_analysis$VERSION_TAG \n"
-docker push $REGISTRY_PREFIX/ds_analysis$VERSION_TAG
+printf "pushing image: $REGISTRY_PREFIX/ketos_brain$VERSION_TAG \n"
+docker push $REGISTRY_PREFIX/ketos_brain$VERSION_TAG
 
-printf "pushing image: $REGISTRY_PREFIX/ds_opal$VERSION_TAG \n"
-docker push $REGISTRY_PREFIX/ds_opal$VERSION_TAG
+printf "pushing image: $REGISTRY_PREFIX/ketos_gui$VERSION_TAG \n"
+docker push $REGISTRY_PREFIX/ketos_gui$VERSION_TAG
 
-printf "pushing image: $REGISTRY_PREFIX/ds_poll_gui$VERSION_TAG \n"
-docker push $REGISTRY_PREFIX/ds_poll_gui$VERSION_TAG
+printf "pushing image: $REGISTRY_PREFIX/ketos_preprocessing$VERSION_TAG \n"
+docker push $REGISTRY_PREFIX/ketos_preprocessing$VERSION_TAG
 
-printf "pushing image: $REGISTRY_PREFIX/ds_poll$VERSION_TAG \n"
-docker push $REGISTRY_PREFIX/ds_poll$VERSION_TAG
+printf "pushing image: $REGISTRY_PREFIX/ketos_anno$VERSION_TAG \n"
+docker push $REGISTRY_PREFIX/ketos_anno$VERSION_TAG
 
-printf "pushing image: $REGISTRY_PREFIX/ds_queue$VERSION_TAG \n"
-docker push $REGISTRY_PREFIX/ds_queue$VERSION_TAG
+printf "pushing image: $REGISTRY_PREFIX/ketos_env_ds$VERSION_TAG \n"
+docker push $REGISTRY_PREFIX/ketos_env_ds$VERSION_TAG
+
+printf "pushing image: $REGISTRY_PREFIX/ketos_env_r$VERSION_TAG \n"
+docker push $REGISTRY_PREFIX/ketos_env_r$VERSION_TAG
 
 printf "finished building an pushing all images for DS-QP ....\n"
