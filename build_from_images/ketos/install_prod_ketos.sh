@@ -16,6 +16,11 @@ if [[ -n $REGISTRY_PREFIX ]]; then
    ./pullKetosProdImages.sh
 fi
 
+
+mkdir -p /ketos/auth
+cp ./auth/* /ketos/auth
+
+
 ./start_prod.sh
 
 printf "\n ketos will start a user interface on port 443 of your server\n"

@@ -1,7 +1,7 @@
 REGISTRY_PREFIX=${1:-"docker.miracum.org/ketos"}
 REGISTRY_USER=$2
 REGISTRY_PW=$3
-VERSION_TAG=${4:-"v0.1.0"}
+VERSION_TAG=${4:-"v0.2.0"}
 
 if [ -n $VERSION_TAG ]; then
     VERSION_TAG=":$VERSION_TAG"
@@ -16,6 +16,10 @@ cd ketos_brain_api
 printf "building image: $REGISTRY_PREFIX/ketos_brain$VERSION_TAG \n"
 docker build -f Dockerfile.ketos_brain_api -t $REGISTRY_PREFIX/ketos_brain$VERSION_TAG .
 
+printf "building new gui for image: $REGISTRY_PREFIX/ketos_gui$VERSION_TAG \n"
+cd ../ketos_gui && ./build_dist_and_deploy.sh
+
+cd ../ketos_brain_api
 printf "building image: $REGISTRY_PREFIX/ketos_gui$VERSION_TAG \n"
 docker build -f Dockerfile.ketos_gui_server -t $REGISTRY_PREFIX/ketos_gui$VERSION_TAG .
 
