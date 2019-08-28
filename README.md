@@ -1,8 +1,14 @@
-# ketos_Development
+# KETOS Development
 
 KETOS closes the gap between research and the clinical application of machine learning models. The platform is named after the Greek word for sea monster, as it relies on Docker (whale) to provide lightweight encapsulated development environments to researchers. The system provides a platform that allows researchers and machine learning experts to create their own environment for development. It allows them to train their models on pre-processed, standardized data and deploy them by making them accessible from the outside via a webservice. It provides statisticians, biometricians and collaborating medical informaticians with the ability to develop their models and then deploy them, by standardizing the data retrieval and webservice deployment process.
 
-## Getting Started
+
+
+## Installing from images
+
+To install the newest version of KETOS from images please refer to build_from_images/README.md of this repository
+
+## Getting Started for development
 
 ### Prerequisites:
 Ketos requires Docker (https://www.docker.com/community-edition) to be installed on the host machine and the KETOS GUI requires nodejs and npm (see the following link for installation https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-16-04)
@@ -10,11 +16,11 @@ Ketos requires Docker (https://www.docker.com/community-edition) to be installed
 ### Basic Ketos Instance
 The Ketos application is a microservice architecture, which runs multiple services on docker containers. Each service and the ketos gui are kept in separate repositories, which are merged into one using this (main) repository.
 
-to pull all the subrepositories execute the `git_update.sh` in the root of this project. - This will pull all the other ketos repositories for you.
+to pull all the subrepositories execute the `git_update.sh` in the root of this project. - This will pull all the other KETOS repositories for you.
 
 
 #### create environment docker images
-Ketos needs environment docker images to provide researchers with different docker environments. These images can be hosted on a docker registry and shared bewtween ketos instances. However for the purpose of a simple setup we provide you with a "buildEnvironmentImages.sh" to build the needed images locally.
+KETOS needs environment docker images to provide researchers with different Docker environments. These images can be hosted on a Docker registry and shared bewtween KETOS instances. However for the purpose of a simple setup we provide you with a "buildEnvironmentImages.sh" to build the needed images locally.
 
 ```bash
 buildEnvironmentImages.sh
@@ -44,7 +50,7 @@ For the purpose of a simple development environment and to test ketos you can co
 
 #### starting the GUI
 
-to start the ketos user interface execute the following commands in your shell in the root of this project
+To start the KETOS user interface execute the following commands in your shell in the root of this project
 
 ```bash
 cd ketos_gui
@@ -52,8 +58,8 @@ npm install
 npm start
 ```
 
-this starts the ketos user interface on a local server
-insert the following URL into your browser to access the user interface
+This starts the ketos user interface on a local server.
+Insert the following URL into your browser to access the user interface:
 http://localhost:4200 
 
 
