@@ -41,6 +41,11 @@ docker pull $REGISTRY_PREFIX/ketos_env_r$VERSION_TAG
 docker tag $REGISTRY_PREFIX/ketos_env_r$VERSION_TAG $REGISTRY_PREFIX/ketos_env_r:latest
 docker tag $REGISTRY_PREFIX/ketos_env_r$VERSION_TAG ketos_env_r:latest
 
+printf "pulling image: $REGISTRY_PREFIX/ketos_fhir$VERSION_TAG \n"
+docker pull $REGISTRY_PREFIX/ketos_fhir$VERSION_TAG
+docker tag $REGISTRY_PREFIX/ketos_fhir$VERSION_TAG $REGISTRY_PREFIX/ketos_fhir:latest
+docker tag $REGISTRY_PREFIX/ketos_fhir$VERSION_TAG ketos_fhir:latest
+
 printf "finished pulling all images for DS-QP ....\n"
 
 

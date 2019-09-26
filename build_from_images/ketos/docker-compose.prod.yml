@@ -32,6 +32,8 @@ services:
       - config_brain_db.env
   brain_db:
     container_name: ketos_brain_db
+    ports:
+      - "127.0.0.1:5433:5432"
     restart: unless-stopped
     image: postgres:latest
     restart: unless-stopped
@@ -52,13 +54,38 @@ services:
     networks:
       - backend
       - environment
+      - fhir
   mongodb:
     container_name: ketos_preproc_db
     image: mongo:latest
     restart: unless-stopped
     networks:
       - backend
+  fhir:
+    container_name: ketos_fhir
+    restart: unless-stopped
+    image: ketos_fhir:latest
+    restart: unless-stopped
+    env_file:
+      - config_ketos_fhir.env
+    ports:
+      - "8080:8080"
+    networks:
+      - fhir
+  
+  fhirdb:
+    container_name: ketos_fhir_db
+    restart: unless-stopped
+    image: postgres:latest
+    restart: unless-stopped
+    env_file:
+      - config_ketos_fhir.env
+    ports:
+      - "127.0.0.1:5434:5432"
+    networks:
+      - fhir
 networks:
   frontend:
   backend:
   environment:
+  fhir:
