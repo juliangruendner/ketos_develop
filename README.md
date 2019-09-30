@@ -6,47 +6,44 @@ KETOS closes the gap between research and the clinical application of machine le
 
 ## Installing from images
 
-To install the newest version of KETOS from images please refer to build_from_images/README.md of this repository
+To install the newest version of KETOS from images please refer to build_from_images/ketos/README.md of this repository
 
 ## Getting Started for development
 
 ### Prerequisites:
+
 Ketos requires Docker (https://www.docker.com/community-edition) to be installed on the host machine and the KETOS GUI requires nodejs and npm (see the following link for installation https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-16-04)
 
-### Basic Ketos Instance
+### Basic KETOS Instance
+
 The Ketos application is a microservice architecture, which runs multiple services on docker containers. Each service and the ketos gui are kept in separate repositories, which are merged into one using this (main) repository.
 
 to pull all the subrepositories execute the `git_update.sh` in the root of this project. - This will pull all the other KETOS repositories for you.
 
 
-#### create environment docker images
+#### Create environment docker images
 KETOS needs environment docker images to provide researchers with different Docker environments. These images can be hosted on a Docker registry and shared bewtween KETOS instances. However for the purpose of a simple setup we provide you with a "buildEnvironmentImages.sh" to build the needed images locally.
 
 ```bash
 buildEnvironmentImages.sh
 ```
 
-#### start the basic ketos microservices
+#### Start the basic KETOS microservices
 
 ```bash
 start.sh
 ```
 
-For convenience we then provide you with a `start.sh`, which will start a basic ketos instance composed of the following services:
+For convenience we then provide you with a `start.sh`, which will start a basic ketos instance.
 
-- ml_service   (brain_api)
-- data_pre     (ketos preprocessing service)
-- anno_api     (annotation api)
 
-It further starts one basic environment, which can be used for development purposes, as the code of this environment is directly mapped to the host system.
+#### Connect KETOS do a data service
 
-#### connecting ketos do a data service
+KETOS requires a data service, which consists of a FHIR server and a database (for example OMOP).
 
-Ketos requires a data service, which consists of a FHIR server and a database (for example OMOP).
+If you are interested in a working version of OMOP on FHIR see: http://omoponfhir.org/
 
-If you are interested in a working version of the OMOP on FHIR server used for KETOS please feel free to contact myself: julian.gruendner@fau.de
-
-For the purpose of a simple development environment and to test ketos you can connect to our KETOS data service online under: http://ketos.ai:8080/gtfhir/base/ , which is already preconfigured for you in this repository
+For the purpose of a simple development environment and to test KETOS we provide a HAPI FHIR server (without OMOP) , which is already preconfigured for you in this repository and automatically set up for you when u start your local ketos development.
 
 #### starting the GUI
 

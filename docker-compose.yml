@@ -23,7 +23,7 @@ services:
       - frontend
       - backend
       - environment
-      - fhiromop
+      - ketosfhir
     links:
       - brain_db
     volumes:
@@ -75,46 +75,71 @@ services:
     networks:
       - backend
       - environment
+      - ketosfhir
     volumes:
       - ./ketos_preprocessing:/ketos_preprocessing
     command: bash -c "cd /ketos_preprocessing/src && chmod +x startup.dev.sh && ./startup.dev.sh"
+  #
+  #anno_db:
+  #  container_name: ketos_anno_db
+  #  restart: unless-stopped
+  #  image: postgres:latest
+  #  restart: unless-stopped
+  #  env_file:
+  #    - config_anno_db.env
+  #  ports:
+  #    - "5434:5432"
+  #  volumes:
+  #    - ./pg_data_anno:/var/lib/postgresql/data
+  #  networks:
+  #    - backend
+  #
+  #anno_api:
+  #  container_name: ketos_anno
+  #  image: python:3
+  #  restart: unless-stopped
+  #  depends_on:
+  #    - anno_db
+  #  ports:
+  #    - "5005:5000"
+  #  networks:
+  #    - backend
+  #  links:
+  #    - anno_db
+  #  volumes:
+  #    - ./ketos_annotation/src:/ketos_annotation
+  #  env_file:
+  #    - config_anno_db.env
+  #  command: bash -c "cd /ketos_annotation && chmod +x startup.dev.sh && ./startup.dev.sh"
+
+  fhir:
+    container_name: ketos_fhir
+    restart: unless-stopped
+    image: docker.miracum.org/ketos/ketos_fhir:v0.2.0
+    restart: unless-stopped
+    env_file:
+      - config_ketos_fhir.env
+    ports:
+      - "8080:8080"
+    networks:
+      - backend
   
-  anno_db:
-    container_name: ketos_anno_db
+  fhirdb:
+    container_name: ketos_fhir_db
     restart: unless-stopped
     image: postgres:latest
     restart: unless-stopped
     env_file:
-      - config_anno_db.env
+      - config_ketos_fhir.env
     ports:
       - "5434:5432"
-    volumes:
-      - ./pg_data_anno:/var/lib/postgresql/data
     networks:
       - backend
-  
-  anno_api:
-    container_name: ketos_anno
-    image: python:3
-    restart: unless-stopped
-    depends_on:
-      - anno_db
-    ports:
-      - "5005:5000"
-    networks:
-      - backend
-    links:
-      - anno_db
-    volumes:
-      - ./ketos_annotation/src:/ketos_annotation
-    env_file:
-      - config_anno_db.env
-    command: bash -c "cd /ketos_annotation && chmod +x startup.dev.sh && ./startup.dev.sh"
 
 networks:
   frontend:
   backend:
   environment:
-  fhiromop:
+  ketosfhir:
       external:
-        name: fhiromop
+        name: ketosfhir

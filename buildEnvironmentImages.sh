@@ -1,16 +1,13 @@
 cd ketos_environment_api
 
-# build tf image
-cd docker/ubuntu_jupyter_tf
-docker build -t ketos.ai:5043/mlservicecontainer_tf .
-cd ../..
-docker build -f Dockerfile.API.prodTf -t ketos.ai:5043/mlservicecontainer_prod_tf .
+# build standard environments based on jupyter notebook docker containers
 
+# build ds and r jupyter image
+cd ../ketos_environment_api/docker/jupyter_ds
+docker build -t jupyter_ds:latest .
 
-# build r image
-cd docker/alpine_jupyter
-docker build -t ketos.ai:5043/alpine_jupyter:latest .
-cd ../alpine_jupyter_r
-docker build -t ketos.ai:5043/mlservicecontainer_r .
 cd ../..
-docker build -f Dockerfile.API.prod -t ketos.ai:5043/mlservicecontainer_prod_r .
+
+printf "building image: environment images \n"
+docker build -f Dockerfile.API.prod.ds -t ketos_env_ds:latest .
+docker build -f Dockerfile.API.prod.ds -t ketos_env_r:latest .

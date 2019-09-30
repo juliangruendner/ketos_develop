@@ -1,6 +1,6 @@
-REGISTRY_PREFIX=${1:-"docker.miracum.org/ketos"}
-REGISTRY_USER=$2
-REGISTRY_PW=$3
+REGISTRY_USER=$1
+REGISTRY_PW=$2
+REGISTRY_PREFIX=${3:-"docker.miracum.org/ketos"}
 VERSION_TAG=${4:-"v0.2.0"}
 
 if [ -n $VERSION_TAG ]; then
