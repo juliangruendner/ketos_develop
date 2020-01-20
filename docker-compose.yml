@@ -29,7 +29,7 @@ services:
     volumes:
       - ./ketos_brain_api/src:/ketos_brain_api
       - /var/run/docker.sock:/var/run/docker.sock
-      - /ketos:/ketos
+      - /Users/juliangruendner/phd/code/ketos_develop/ketos_data_dir:/ketos
     env_file:
       - config_brain.env
       - config_brain_db.env
