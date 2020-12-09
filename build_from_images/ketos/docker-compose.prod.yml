@@ -13,7 +13,7 @@ services:
       - frontend
   ketos_brain:
     container_name: ketos_brain
-    image: ketos_brain
+    image: docker.miracum.org/ketos/ketos_brain:v0.2.2
     restart: unless-stopped
     depends_on:
       - brain_db

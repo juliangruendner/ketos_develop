@@ -32,14 +32,14 @@ docker pull $REGISTRY_PREFIX/ketos_anno$VERSION_TAG
 docker tag $REGISTRY_PREFIX/ketos_anno$VERSION_TAG ketos_anno:latest
 
 printf "pulling image: $REGISTRY_PREFIX/ketos_env_ds$VERSION_TAG \n"
-docker pull $REGISTRY_PREFIX/ketos_env_ds$VERSION_TAG
-docker tag $REGISTRY_PREFIX/ketos_env_ds$VERSION_TAG $REGISTRY_PREFIX/ketos_env_ds:latest
-docker tag $REGISTRY_PREFIX/ketos_env_ds$VERSION_TAG ketos_env_ds:latest
+docker pull $REGISTRY_PREFIX/ketos_env_ds:v0.3.0
+docker tag $REGISTRY_PREFIX/ketos_env_ds:v0.3.0 $REGISTRY_PREFIX/ketos_env_ds:latest
+docker tag $REGISTRY_PREFIX/ketos_env_ds:v0.3.0 ketos_env_ds:latest
 
 printf "pulling image: $REGISTRY_PREFIX/ketos_env_r$VERSION_TAG \n"
-docker pull $REGISTRY_PREFIX/ketos_env_r$VERSION_TAG
-docker tag $REGISTRY_PREFIX/ketos_env_r$VERSION_TAG $REGISTRY_PREFIX/ketos_env_r:latest
-docker tag $REGISTRY_PREFIX/ketos_env_r$VERSION_TAG ketos_env_r:latest
+docker pull $REGISTRY_PREFIX/ketos_env_r:v0.3.0
+docker tag $REGISTRY_PREFIX/ketos_env_r:v0.3.0 $REGISTRY_PREFIX/ketos_env_r:latest
+docker tag $REGISTRY_PREFIX/ketos_env_r:v0.3.0 ketos_env_r:latest
 
 printf "pulling image: $REGISTRY_PREFIX/ketos_fhir$VERSION_TAG \n"
 docker pull $REGISTRY_PREFIX/ketos_fhir$VERSION_TAG
